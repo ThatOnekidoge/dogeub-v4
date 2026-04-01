@@ -1,48 +1,302 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <link rel="icon" id="icon" href="/assets/img/salyte.jpg">
   <script src="/assets/js/cdn-rocket.js?v=3" defer></script>
-  <link rel="stylesheet" href="/assets/css/app.css?v=3">
-  <link rel="stylesheet" href="/assets/css/menu.css?v=3">
-  <script rel="preload" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js?v=3"></script>
-  <script src="/assets/js/anym.js?v=3"></script>
-  <title>Dashboard | Salyte</title>
+  <!-- Win2k stylesheet (replaces app.css + menu.css for this page) -->
+  <link rel="stylesheet" href="/assets/css/win2k.css?v=4">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <title>Doge Unblocker — Dashboard</title>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HWLK0PZVBM"></script>
-  <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-HWLK0PZVBM');</script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HWLK0PZVBM');</script>
 </head>
 <body>
+
+  <!-- Service worker / proxy scripts -->
   <script src="/baremux/index.js?v=3"></script>
   <script src="/wk/wk2.js?v=3"></script>
   <script src="/wk/wk3.js?v=3"></script>
-<div id="contextMenu" class="context-menu themesExcluded" style="--ripple-duration: 300ms;"><div class="context-menu-item with-submenu themesExcluded" id="contextItem" anim="ripple" onclick="toggleSubmenu(event)"><i class="bi bi-file-spreadsheet"></i> Tab Cloak</div><div class="context-submenu themesExcluded" id="contextItem"><div class="context-menu-item themesExcluded" id="contextItem" anim="ripple" onclick="tabCloak()">Enable</div><div class="context-menu-item themesExcluded" anim="ripple" onclick="disableTabCloak()">Disable</div></div><div class="context-menu-item themesExcluded" id="contextItem" onclick="visitSite()"><i class="bi bi-clock-history"></i> Last Visited Site</div><div class="context-menu-item themesExcluded" id="contextItem" onclick="openWindow()"><i class="bi bi-box-arrow-up-right"></i> About:Blank Cloak</div><div class="context-menu-item themesExcluded" id="contextItem" onclick="openSettings()"><i class="bi bi-gear"></i> View all Settings</div></div>
-<nav id="mytopnav">
-  <button class="btn-main" anim="ripple" onclick="send('/settings.html')"><i class="bi bi-gear" style="font-size:30px;"></i>Settings</button>
-  <button class="btn-main" anim="ripple" onclick="send('/gms')"><i class="bi bi-joystick" style="font-size:30px;"></i>Games</button>
-  <button class="btn-main" anim="ripple" onclick="send('/apps')"><i class="bi bi-grid-fill" style="font-size:30px;"></i>Apps</button><br>
-  <a href="#" class="title" anim="ripple"><img src="/assets/img/doge2.jpg" style="width:22px;height:22px;" id="logo"> Doge Unblocker</a>    
-</nav>
-  <div style="text-align:center;color:white;margin-top: 80px;z-index:1;" class="themesExcluded">
-    <div class="themesExcluded">
-      <i class="bi bi-search search" id="search"></i>
-      <form method="POST" id="uform" autocomplete="off" class="themesExcluded" style="z-index:1;">
-        <input type="text" name="url" class="browse-input themesExcluded" style="font-family:poppins;font-size:20px;z-index:1;" placeholder="Type URL or search query"><p class="splashText themesExcluded" id="placeholder"></p>
-      </form>
+
+  <!-- =====================  CONTEXT MENU  ===================== -->
+  <div id="contextMenu" class="context-menu">
+    <div class="context-menu-item with-submenu">
+      <i class="bi bi-file-spreadsheet"></i> Tab Cloak
+      <div class="context-submenu">
+        <div class="context-menu-item" onclick="tabCloak()">Enable</div>
+        <div class="context-menu-item" onclick="disableTabCloak()">Disable</div>
+      </div>
     </div>
-    <div class="footer themesExcluded" style="text-align:right;">
-      <a href="https://discord.gg/sWPHCdxCPU" target="new"><i class="bi bi-discord"></i></a>
-      <a href="https://github.com/dogenetwork/v4" target="new"><i class="bi bi-github"></i></a>
-    </div>
-    <div class="bottom-right-content themesExcluded">
-    <a href="/info">Site Info</a>
+    <div class="context-menu-sep"></div>
+    <div class="context-menu-item" onclick="visitSite()"><i class="bi bi-clock-history"></i> Last Visited Site</div>
+    <div class="context-menu-item" onclick="openWindow()"><i class="bi bi-box-arrow-up-right"></i> About:Blank Cloak</div>
+    <div class="context-menu-sep"></div>
+    <div class="context-menu-item" onclick="openSettings()"><i class="bi bi-gear"></i> View All Settings</div>
   </div>
+
+  <!-- =====================  DESKTOP ICONS  ==================== -->
+  <div id="desktop">
+    <div class="desktop-icon-row">
+      <div class="desktop-icon" ondblclick="send('/gms')">
+        <i class="bi bi-joystick" style="font-size:32px;color:#fff;text-shadow:1px 1px 2px #000;"></i>
+        <span>Games</span>
+      </div>
+      <div class="desktop-icon" ondblclick="send('/apps')">
+        <i class="bi bi-grid-fill" style="font-size:32px;color:#fff;text-shadow:1px 1px 2px #000;"></i>
+        <span>Apps</span>
+      </div>
+      <div class="desktop-icon" ondblclick="send('/settings.html')">
+        <i class="bi bi-gear-fill" style="font-size:32px;color:#fff;text-shadow:1px 1px 2px #000;"></i>
+        <span>Settings</span>
+      </div>
+      <div class="desktop-icon" ondblclick="window.open('https://discord.gg/sWPHCdxCPU','_blank')">
+        <i class="bi bi-discord" style="font-size:32px;color:#fff;text-shadow:1px 1px 2px #000;"></i>
+        <span>Discord</span>
+      </div>
+      <div class="desktop-icon" ondblclick="window.open('https://github.com/dogenetwork/v4','_blank')">
+        <i class="bi bi-github" style="font-size:32px;color:#fff;text-shadow:1px 1px 2px #000;"></i>
+        <span>GitHub</span>
+      </div>
+    </div>
+
+    <!-- ==================  MAIN BROWSER WINDOW  ================ -->
+    <div id="main-window">
+
+      <!-- Title bar -->
+      <div id="title-bar">
+        <div id="title-bar-left">
+          <i class="bi bi-globe2" style="color:#7ec8e3;font-size:13px;"></i>
+          <span>Doge Unblocker — Microsoft Internet Explorer</span>
+        </div>
+        <div id="title-bar-controls">
+          <div class="tb-btn" title="Minimize">_</div>
+          <div class="tb-btn" title="Maximize">&#9633;</div>
+          <div class="tb-btn" title="Close" style="font-weight:bold;" onclick="alert('Cannot close Doge Unblocker!')">&#x2715;</div>
+        </div>
+      </div>
+
+      <!-- Menu bar -->
+      <div id="menu-bar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+        <span class="menu-item">Favorites</span>
+        <span class="menu-item">Tools</span>
+        <span class="menu-item">Help</span>
+      </div>
+
+      <!-- Toolbar -->
+      <div id="toolbar">
+        <button class="nav-btn" onclick="history.back()" title="Back"><i class="bi bi-arrow-left"></i><span>Back</span></button>
+        <button class="nav-btn" onclick="history.forward()" title="Forward"><i class="bi bi-arrow-right"></i><span>Forward</span></button>
+        <button class="nav-btn" onclick="location.reload()" title="Refresh"><i class="bi bi-arrow-clockwise"></i><span>Refresh</span></button>
+        <div class="toolbar-sep"></div>
+        <button class="nav-btn" onclick="send('/gms')" title="Games"><i class="bi bi-joystick"></i><span>Games</span></button>
+        <button class="nav-btn" onclick="send('/apps')" title="Apps"><i class="bi bi-grid-fill"></i><span>Apps</span></button>
+        <button class="nav-btn" onclick="send('/settings.html')" title="Settings"><i class="bi bi-gear"></i><span>Settings</span></button>
+        <div class="toolbar-sep"></div>
+        <button class="nav-btn" onclick="openWindow()" title="About:Blank"><i class="bi bi-box-arrow-up-right"></i><span>Cloak</span></button>
+      </div>
+
+      <!-- Address bar -->
+      <div id="address-bar">
+        <label for="addrInput">Address</label>
+        <input type="text" id="addrInput" value="http://dogeub.vercel.app/" readonly>
+        <button id="go-btn" onclick="submitSearch()">Go</button>
+      </div>
+
+      <!-- Content area (main search) -->
+      <div id="content-area">
+        <div class="search-logo">
+          <i class="bi bi-globe2" style="font-size:52px;color:#000080;display:block;"></i>
+          <h2>Doge Unblocker</h2>
+        </div>
+
+        <form id="uform" autocomplete="off" onsubmit="handleSubmit(event)" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div id="search-group">
+            <input type="text" name="url" id="mainSearch" placeholder="Type URL or search query...">
+            <button type="submit">Search</button>
+          </div>
+        </form>
+
+        <p id="splash-text" class="splash-text"></p>
+
+        <div id="quick-links">
+          <a class="ql-btn" onclick="send('/gms')">&#127918; Games</a>
+          <a class="ql-btn" onclick="send('/apps')">&#128736; Apps</a>
+          <a class="ql-btn" onclick="send('/settings.html')">&#9881; Settings</a>
+          <a class="ql-btn" href="/info">&#8505; Site Info</a>
+        </div>
+      </div>
+
+      <!-- Status bar -->
+      <div id="status-bar">
+        <div class="status-panel" id="statusText">Done</div>
+        <div class="status-panel" style="flex:0 0 120px;">&#127760; Internet zone</div>
+      </div>
+
+    </div><!-- /main-window -->
+  </div><!-- /desktop -->
+
+  <!-- =====================  TASKBAR  ========================= -->
+  <div id="taskbar">
+    <button id="start-btn" onclick="toggleStartMenu()">
+      <i class="bi bi-windows" style="font-size:16px;color:#1084d0;"></i>
+      <strong>Start</strong>
+    </button>
+    <div class="taskbar-sep"></div>
+    <div class="task-btn active">
+      <i class="bi bi-globe2" style="font-size:13px;"></i>
+      Doge Unblocker
+    </div>
+    <div id="system-tray">
+      <i class="bi bi-wifi" title="Connected"></i>
+      <i class="bi bi-volume-up" title="Volume"></i>
+      <span id="clock">00:00</span>
+    </div>
+  </div>
+
+  <!-- =====================  START MENU  ====================== -->
+  <div id="start-menu">
+    <div id="start-menu-header">Doge Unblocker</div>
+    <div id="start-menu-items">
+      <div class="sm-item" onclick="send('/gms')"><i class="bi bi-joystick"></i> Games</div>
+      <div class="sm-item" onclick="send('/apps')"><i class="bi bi-grid-fill"></i> Apps</div>
+      <div class="sm-item" onclick="send('/settings.html')"><i class="bi bi-gear"></i> Settings</div>
+      <div class="sm-sep"></div>
+      <div class="sm-item" onclick="window.open('https://discord.gg/sWPHCdxCPU','_blank')"><i class="bi bi-discord"></i> Discord</div>
+      <div class="sm-item" onclick="window.open('https://github.com/dogenetwork/v4','_blank')"><i class="bi bi-github"></i> GitHub</div>
+      <div class="sm-sep"></div>
+      <div class="sm-item" onclick="tabCloak()"><i class="bi bi-file-spreadsheet"></i> Tab Cloak</div>
+      <div class="sm-item" onclick="openWindow()"><i class="bi bi-box-arrow-up-right"></i> About:Blank</div>
+      <div class="sm-sep"></div>
+      <a class="sm-item" href="/info"><i class="bi bi-info-circle"></i> Site Info</a>
+    </div>
+  </div>
+
+  <!-- =====================  SCRIPTS  ========================= -->
   <script src="/assets/js/main.js?v=3"></script>
   <script src="/assets/js/index.js?v=3"></script>
   <script src="/assets/js/themes.js?v=3"></script>
-  <script src="/assets/js/particles.js?v=3"></script>
   <script src="/assets/js/register.js?v=3" defer></script>
-</div>
+
+  <script>
+    /* ---- Clock ---- */
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('clock').textContent = h + ':' + m;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    /* ---- Start menu toggle ---- */
+    function toggleStartMenu() {
+      var sm = document.getElementById('start-menu');
+      sm.style.display = (sm.style.display === 'block') ? 'none' : 'block';
+    }
+    document.addEventListener('click', function(e) {
+      var sm = document.getElementById('start-menu');
+      if (!document.getElementById('start-btn').contains(e.target)) {
+        sm.style.display = 'none';
+      }
+    });
+
+    /* ---- Context menu ---- */
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      var menu = document.getElementById('contextMenu');
+      menu.style.display = 'block';
+      menu.style.left = e.clientX + 'px';
+      menu.style.top  = e.clientY + 'px';
+    });
+    document.addEventListener('click', function(e) {
+      var menu = document.getElementById('contextMenu');
+      if (!menu.contains(e.target)) menu.style.display = 'none';
+    });
+
+    /* ---- Splash text ---- */
+    var tips = [
+      "Right-click for more features.",
+      "Set a custom background in Settings > Themes.",
+      "Tab Cloaking is highly recommended.",
+      "About:Blank Cloak hides this tab instantly.",
+      "Join our Discord for tons of extra links!",
+      "\u00a9 Copyright 2024 Doge Network. All Rights Reserved.",
+      "Hi, fowntain here!",
+      "Customize Doge in Settings > Themes.",
+      "Do not share this link with anyone.",
+    ];
+    document.getElementById('splash-text').textContent =
+      tips[Math.floor(Math.random() * tips.length)];
+
+    /* ---- Navigation helper ---- */
+    function send(path) {
+      location.href = path;
+    }
+
+    /* ---- openWindow (about:blank cloak) ---- */
+    function openWindow() {
+      var win = window.open('about:blank', '_blank');
+      var iframe = win.document.createElement('iframe');
+      iframe.src = location.href;
+      iframe.style = 'border:none;width:100%;height:100%;position:fixed;top:0;left:0;';
+      win.document.body.style.margin = '0';
+      win.document.body.appendChild(iframe);
+    }
+
+    /* ---- openSettings ---- */
+    function openSettings() { send('/settings.html'); }
+    function visitSite() { var u = localStorage.getItem('lastVisited'); if(u) send(u); }
+
+    /* ---- Address-bar sync ---- */
+    var addrInput = document.getElementById('addrInput');
+    if (addrInput) {
+      addrInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          var val = addrInput.value.trim();
+          if (!val) return;
+          if (!val.startsWith('http')) val = 'http://' + val;
+          var form = document.getElementById('uform');
+          document.getElementById('mainSearch').value = val;
+          form.dispatchEvent(new Event('submit', { cancelable: true }));
+        }
+      });
+    }
+
+    function submitSearch() {
+      var form = document.getElementById('uform');
+      form.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+
+    /* ---- handleSubmit delegates to the original index.js logic ---- */
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('statusText').textContent = 'Connecting...';
+      var input = document.getElementById('mainSearch');
+      var url = (input && input.value.trim()) ? input.value.trim() : '';
+      if (!url) return;
+      function isUrl(val) {
+        return /^http(s?):\/\//.test(val) || (val.includes('.') && val[0] !== ' ');
+      }
+      if (!isUrl(url)) url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+      else if (!url.startsWith('http')) url = 'http://' + url;
+      localStorage.setItem('lastVisited', url);
+      navigator.serviceWorker.register('/lab.js', { scope: '/assignments/' }).then(function() {
+        if (typeof __uv$config !== 'undefined') {
+          localStorage.setItem('encodedUrl', __uv$config.encodeUrl(url));
+        }
+        location.href = '/mastery';
+      }).catch(function() {
+        location.href = '/mastery';
+      });
+    }
+
+    /* ---- Address bar reflect current page ---- */
+    if (addrInput) addrInput.value = window.location.href;
+  </script>
 </body>
 </html>
